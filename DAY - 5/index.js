@@ -28,4 +28,3 @@ return c;
 }
 var finalAmount = applyDiscount(1000,500);
 console.log(finalAmount)
-
