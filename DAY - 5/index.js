@@ -28,3 +28,9 @@ return c;
 }
 var finalAmount = applyDiscount(1000,500);
 console.log(finalAmount)
+
+
+let name = "GOBI";
+let love = "ABARNA";
+let she = "LOVE ME";
+console.log(`My name is ${name}.She is ${love},She is ${she} or WOT `)
