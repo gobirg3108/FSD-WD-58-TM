@@ -1,36 +1,34 @@
-class Animal  {
-    constructor ( ) {
-        console.log("This is constructor from Animal class");
+var shape ={
+    is2D:true,
+};
 
-    }
+var circle = {
+    radius : 3,
+
+}
+var rectangle = {
+    length: 1,
+    breath: 2,
+}
+
+circle.__proto__= shape ;
+rectangle.__proto__ = shape;
+
+console.log("is circle a 2D shape :",circle.is2D);
+console.log("Radius of circle :",circle.radius);
+// using proto refer shape to rectangle
+console.log("is rectangle a 2D shape :"+ rectangle.is2D);
+console.log("Length of rectangle = " +rectangle.length+",Breath of rectangle = "+rectangle.breath);
+
+class Animal {
     moves = true;
+
 }
-class Rabbit extends Animal {
-    constructor ( ) {
-        super ( );
-        console.log("This is constructor from Rabbit class");
-
-    }
-    eats = true;}
-    
-    let lion = new Rabbit();
-
-var input = [23, 45, 678, 90, 33, 21, 780, 670, 498, 58940, 6545, 900, 370, 1299, 1300];
-
-var dividedByTen = input.filter(item => item % 10 === 0);
-
-console.log(dividedByTen); 
-
-
-function applyDiscount(a,b){
-var c = a-b;
-return c;
+class Rabbit extends Animal{
+    eats = true;
 }
-var finalAmount = applyDiscount(1000,500);
-console.log(finalAmount)
+let a1 = new Animal( )
+console.log(a1.moves);
 
-
-let name = "GOBI";
-let love = "ABARNA";
-let she = "LOVE ME";
-console.log(`My name is ${name}.She is ${love},She is ${she} or WOT `)
+let a2 = new Rabbit();
+console.log(a2)
