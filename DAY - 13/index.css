@@ -1,0 +1,16 @@
+.gold {
+    color: goldenrod;
+}
+
+.big {
+    font-size: 2rem;
+}
+#scroll {
+    position: relative;
+    background-color: mediumpurple;
+    height: 200px;
+    padding: 5px;
+    border: 2px;
+    margin: 2em;
+    overflow: auto;
+}
