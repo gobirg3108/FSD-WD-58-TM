@@ -1,0 +1,46 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 40% 30% auto;
+  margin-bottom: 10px;
+}
+
+.heading-container {
+  margin: 30px 0 30px 0;
+  width: 100%;
+}
+
+.grid-item {
+  background-color: aliceblue;
+  font-size: 1.25rem;
+  word-wrap: break-word;
+  padding-right: 10px;
+}
+
+.name-heading,
+.phone-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: gray;
+  text-transform: uppercase;
+}
+
+.delete-btn {
+  background: red;
+  color: black;
+}
+
+.add-btn {
+  background: #7ab97a;
+  color: #fff;
+}
+
+.custom-btn {
+  padding: 10px;
+  border: none;
+  margin-right: 10px;
+  text-transform: uppercase;
+  width: 80px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+}
