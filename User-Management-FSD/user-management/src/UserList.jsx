@@ -1,81 +1,106 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import {
-  Container,
-  Grid,
-  Typography,
-  Button,
-  Paper,
-  Snackbar,
-  Alert,} from "@mui/material";
-import UserItem from "./UserItem";
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import { Container, Grid, Typography, Button, Paper, Snackbar, Alert } from '@mui/material'
+import UserItem from './UserItem';
+import UserForm from './UserForm';
 
 function UserList() {
-  const [users, setUsers] = useState([]);
-  const [editingUser, setEditingUser] = useState(null);
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    seversity: "success",
-  });
+    const [users, setUsers] = useState([]);
+    const [editingUser, setEditingUser] = useState(null);
+    const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+    useEffect(() => {
+        fetchUsers();
+    }, [])
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      setUsers(response.data);
-    } catch (error) {
-      console.log("Eroor Fetching Users:", error);
-      showSnackbar("Eroor Fetching Users:", error);
+    const fetchUsers = async () => {
+        try {
+            // const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+            const response = await axios.get("http://localhost:3000/apiUser/users");
+            setUsers(response.data);
+        } catch (error) {
+            console.log('Error fetching users:', error);
+            showSnackbar('Error fetching users', 'error');
+        }
     }
-  };
 
-  const showSnackbar = (message, severity) => {
-    setSnackbar({ open: true, message, severity });
-  };
-  
-  const handleSnackbarClose = () => {
-    setSnackbar({ ...snackbar, open: false });
-  };
+    const addUser = async (user) => {
+        try {
+            // console.log("Axios check", axios.post(`https://jsonplaceholder.typicode.com/users/`, user));
+            // const response = await axios.post(`https://jsonplaceholder.typicode.com/users/`, user);
+            const response = await axios.post(`https://fsd58wd-t-2.onrender.com/apiUser/users/`, user);
+            setUsers([...users, response.data]);
+            setEditingUser(null);
+            showSnackbar('User addes successfully', 'success');
+        } catch (error) {
+            console.log('Error adding users:', error);
+            showSnackbar('Error adding users', 'error');
+        }
+    }
 
-  return (
-    <Container>
-      <paper elevation={3} style={{ padding: "20px", margintop: "20px" }}>
-        <Typography variant="h4" gutterBottom>
-          User Management
-        </Typography>
-        <Grid container spacing={3}>
-          {users.map((user) => (
-            <UserItem
-              key={user.id}
-              user={user}
-              onEdit={setEditingUser}
-              onDelete={deleteUser}
-            ></UserItem>
-          ))}
-        </Grid>
-        <Button variant="contained">add user</Button>
-      </paper>
-      <Snackbar
-        open={snackbar.open}
-        autoHideDuration={6000}
-        onClose={handleSnackbarClose}
-      >
-        <Alert
-          onClose={handleSnackbarClose}
-          severity={snackbar.seversity}
-          sx={{ width: "100" }}
-        >
-          {snackbar.message}
-        </Alert>
-      </Snackbar>
-    </Container>
-  );
+    const updateUser = async (user) => {
+        try {
+            await axios.put(`https://fsd58wd-t-2.onrender.com/apiUser/users/${user._id}`, user);
+            fetchUsers();
+            setEditingUser(null);
+            showSnackbar('User updated successfully', 'success');
+        } catch (error) {
+            console.log('Error updating users:', error);
+            showSnackbar('Error updating users', 'error');
+        }
+    }
+
+    const deleteUser = async (id) => {
+        try {
+            await axios.delete(`https://fsd58wd-t-2.onrender.com/apiUser/users/${id}`);
+            fetchUsers();
+            showSnackbar('User deleted Successfully', 'success');
+        } catch (error) {
+            console.log('Error deleting users:', error);
+            showSnackbar('Error deleting users', 'error');
+        }
+    }
+
+    const showSnackbar = (message, severity) => {
+        setSnackbar({ open: true, message, severity });
+    }
+
+    const handleSnackbarClose = () => {
+        setSnackbar({ ...snackbar, open: false })
+    }
+    return (
+        <Container>
+            <Paper style={{ padding: '20px', marginTop: '20px' }}>
+                <Typography variant='h4' gutterBottom>User Management</Typography>
+                <Grid container spacing={3}>
+                    {users.map((user) => (
+                        <UserItem
+                            key={user._id}
+                            user={user}
+                            onEdit={setEditingUser}
+                            onDelete={deleteUser}>
+
+                        </UserItem>
+                    ))}
+                </Grid>
+                <Button variant="contained" color='primary' style={{ marginTop: '20px' }}
+                    onClick={() => setEditingUser({})}>Add user</Button>
+                {editingUser && (
+                    <UserForm
+                        user={editingUser}
+                        onSave={editingUser._id ? updateUser : addUser}
+                        onCancel={() => setEditingUser(null)}
+                    />
+                )}
+            </Paper>
+            <Snackbar open={snackbar.open} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <Alert onClose={handleSnackbarClose} severity={snackbar.severity}
+                    sx={{ width: '100%' }}>
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
+        </Container>
+    )
 }
 
-export default UserList;
+export default UserList
