@@ -25,7 +25,7 @@ function UserItem({ user, onEdit, onDelete }) {
           <Button
             size="small"
             color="secondary"
-            onClick={() => onDelete(user.id)}
+            onClick={() => onDelete(user._id)}
           >
             Delete
           </Button>
