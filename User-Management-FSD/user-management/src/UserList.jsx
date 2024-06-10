@@ -32,7 +32,9 @@ function UserList() {
       //   "https://jsonplaceholder.typicode.com/users"
       // );
 
-      const response = await axios.get("http://localhost:3000/apiUser/users");
+      const response = await axios.get(
+        "http://localhost:3000/apiUser/users"
+      );
 
       setUsers(response.data);
     } catch (error) {
@@ -48,7 +50,7 @@ function UserList() {
       //   user
       // );
       const response = await axios.post(
-        `http://localhost:3000/apiUser/users`,
+        `https://fsd-wd-58-tm-2.onrender.com/apiUser/users`,
         user
       );
       setUsers([...users, response.data]);
@@ -62,7 +64,10 @@ function UserList() {
 
   const updateUser = async (user) => {
     try {
-      await axios.put(`http://localhost:3000/apiUser/users/${user._id}`, user);
+      await axios.put(
+        `https://fsd-wd-58-tm-2.onrender.com/apiUser/users/${user._id}`,
+        user
+      );
       fetchUsers();
       setEditingUser(null);
       showSnackbar("User update successfully", "success");
@@ -74,7 +79,9 @@ function UserList() {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/apiUser/users/${id}`);
+      await axios.delete(
+        `https://fsd-wd-58-tm-2.onrender.com/apiUser/users/${id}`
+      );
       fetchUsers();
       showSnackbar("User deleted successfully");
     } catch (error) {
