@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import {
   Container,
   Grid,
@@ -32,9 +32,7 @@ function UserList() {
       //   "https://jsonplaceholder.typicode.com/users"
       // );
 
-      const response = await axios.get(
-        "http://localhost:3000/apiUser/users"
-      );
+      const response = await axios.get("http://localhost:3000/apiUser/users");
 
       setUsers(response.data);
     } catch (error) {
@@ -100,7 +98,7 @@ function UserList() {
 
   return (
     <Container>
-      <Paper elevation={3} style={{ padding: "20px", marginTop: "20px" }}>
+      <Paper style={{ padding: "20px", marginTop: "20px" }}>
         <Typography variant="h4" gutterBottom>
           User Management
         </Typography>

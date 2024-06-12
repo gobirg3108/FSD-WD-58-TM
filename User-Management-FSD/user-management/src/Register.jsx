@@ -34,7 +34,7 @@ function Register() {
         message: "User Register Successfully",
         severity: "success",
       });
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
       setSnackbar({
         open: true,

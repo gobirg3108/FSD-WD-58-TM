@@ -51,17 +51,9 @@ function Login() {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Register
+        Login
       </Typography>
       <form onSubmit={handleSubmit}>
-        <TextField
-          label="Name"
-          fullWidth
-          margin="normal"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></TextField>
-
         <TextField
           label="Email"
           fullWidth
@@ -80,7 +72,7 @@ function Login() {
         ></TextField>
 
         <Button type="submit" variant="contained" color="primary" fullWidth>
-          Register
+          Login
         </Button>
       </form>
 

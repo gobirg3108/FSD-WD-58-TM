@@ -23,18 +23,19 @@ const theme = createTheme({
 });
 
 function App() {
-  return (<Router>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Container>
-        <Routes>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/users" element={<UserList />}></Route>
-          <Route path="/" element={<Navigate to="/login"></Navigate>}></Route>
-        </Routes>
-      </Container>
-    </ThemeProvider>
+  return (
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container>
+          <Routes>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/users" element={<UserList />}></Route>
+            <Route path="/" element={<Navigate to="/login"></Navigate>}></Route>
+          </Routes>
+        </Container>
+      </ThemeProvider>
     </Router>
   );
 }
