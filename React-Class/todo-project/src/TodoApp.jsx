@@ -1,8 +1,12 @@
 import React from "react";
 import { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function TodoApp() {
+  // Exisiting list of ToDo
   const [todos, setTodos] = useState([]);
+
+  // New ToDo
   const [newTodo, setNewTodo] = useState({
     taskName: "",
     description: "",
@@ -23,9 +27,34 @@ function TodoApp() {
     setNewTodo({ taskName: "", description: "", status: "not completed" });
   };
 
+  const handleUpdateTodoStatus = (index, newStatus) => {
+    const updatedTodos = todos.map((todo, i) => {
+      if (i === index) {
+        return { ...todo, status: newStatus };
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  };
+
+  const handleDeleteTodo = (index) => {
+    debugger;
+    const updatedTodos = todos.filter((_, i) => i !== index);
+
+    setTodos(updatedTodos);
+  };
+
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === "all") {
+      return true;
+    }
+    return todo.status === filter;
+  });
+
   return (
     <div className="container mt-5">
-      <h2 className="text-success text-center mb-4">My todo</h2>
+      <h2 className="text-center mb-4">My Todo</h2>
       <div className="mb-3">
         <input
           type="text"
@@ -45,7 +74,7 @@ function TodoApp() {
           onChange={handleChange}
         />
       </div>
-      <button className="btn btn-success mb-3" onClick={handleCreateTodo}>
+      <button className="btn btn-primary mb-3" onClick={handleCreateTodo}>
         Add Todo
       </button>
       <div className="mb-3">
@@ -58,7 +87,40 @@ function TodoApp() {
           <option value="completed">Completed</option>
         </select>
       </div>
-      <div className="row"></div>
+      <div className="row">
+        {filteredTodos.map((todo, index) => (
+          <div key={index} className="col-lg-4 mb-3">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title">{todo.taskName}</h5>
+                <p className="card-text">{todo.description}</p>
+                <p className="card-text">Status: {todo.status}</p>
+                <button
+                  className="btn btn-secondary me-2"
+                  onClick={() =>
+                    handleUpdateTodoStatus(
+                      index,
+                      todo.status === "completed"
+                        ? "not completed"
+                        : "completed"
+                    )
+                  }
+                >
+                  {todo.status === "completed"
+                    ? "Mark Incomplete"
+                    : "Mark Complete"}
+                </button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDeleteTodo(index)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

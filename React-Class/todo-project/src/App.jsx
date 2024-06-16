@@ -1,7 +1,13 @@
-import TodoApp from "./TodoApp";
-
+import TodoApp from "./TodoApp"
 function App() {
-  return <TodoApp />;
+ 
+
+  return (
+    <>
+    <h1 className="text-center">To-Do Application</h1>
+     <TodoApp/>
+    </>
+  )
 }
 
-export default App;
+export default App
